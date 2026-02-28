@@ -206,7 +206,7 @@ button:active {
     <div class="result" v-if="score!==null">
       <div class="score">{{score}}%</div>
       <div class="comment">{{comment}}</div>
-      <img v-bind:src="pic">
+      <img v-bind:src="pic" height="250px">
     </div>
     <div
       v-for="m in meows"
@@ -362,7 +362,7 @@ createApp({
 
       if(score < 20){
         this.comment="人类浓度过高…尚未弦化喵。";
-        this.emoji="🐾";
+        this.pic="/6.png";
       }
       else if(score < 40){
         this.comment="开始进入卡丘世界，耳朵要长出来了喵~";
@@ -370,15 +370,15 @@ createApp({
       }
       else if(score < 60){
         this.comment="喵化进程 50%！正在同步超弦信号！";
-        this.pic="/2.png";
+        this.pic="/4.png";
       }
       else if(score < 85){
         this.comment="高浓度卡拉彼丘适配者！猫娘指数爆表！";
-        this.pic="/3.png";
+        this.pic="/2.png";
       }
       else{
         this.comment="完全弦化成功！欢迎加入卡丘世界喵！！";
-        this.pic="/4.png";
+        this.pic="/3.png";
       }
 
 
