@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>卡拉彼丘程度计算器喵~</title>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  font-family: "Segoe UI","PingFang SC",sans-serif;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ffe6f2,#e6f7ff);
+}
+
+/* 主卡片 */
+.container{
+  width:90%;
+  max-width:420px;
+  background:white;
+  border-radius:20px;
+  padding:28px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  text-align:center;
+}
+
+/* 标题 */
+.title{
+  font-size:1.6rem;
+  font-weight:700;
+  color:#ff6fa5;
+  margin-bottom:10px;
+}
+
+.subtitle{
+  color:#888;
+  font-size:0.9rem;
+  margin-bottom:20px;
+}
+
+/* 输入框 */
+input{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:2px solid #ffd1e6;
+  outline:none;
+  font-size:1rem;
+  transition:.2s;
+}
+
+input:focus{
+  border-color:#ff6fa5;
+}
+
+/* 按钮 */
+button{
+  margin-top:16px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  background:#ff6fa5;
+  color:white;
+  font-size:1rem;
+  cursor:pointer;
+  transition:.2s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 14px rgba(255,111,165,.4);
+}
+
+/* 结果区 */
+.result{
+  margin-top:22px;
+  padding:16px;
+  border-radius:14px;
+  background:#fff5fb;
+  animation:fade .4s ease;
+}
+
+.score{
+  font-size:2.4rem;
+  font-weight:800;
+  color:#ff4f9a;
+}
+
+.comment{
+  margin-top:8px;
+  color:#666;
+}
+
+.cat{
+  font-size:2rem;
+  margin-top:8px;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:none}
+}
+
+/* 响应式 */
+@media (max-width:480px){
+  .container{
+    padding:22px;
+  }
+  .title{
+    font-size:1.3rem;
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="app">
+  <div class="container">
+
+    <div class="title">🐱 卡拉彼丘程度计算器喵~</div>
+    <div class="subtitle">
+      输入昵称，检测你的猫娘同步率！
+    </div>
+
+    <input v-model="name" placeholder="请输入你的昵称喵~" />
+
+    <button @click="calculate">
+      开始计算卡拉彼丘程度喵！
+    </button>
+
+    <div class="result" v-if="score!==null">
+      <div class="score">{{score}}%</div>
+
+      <div class="comment">{{comment}}</div>
+      <div class="cat">{{emoji}}</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const { createApp } = Vue
+
+createApp({
+  data(){
+    return{
+      name:"",
+      score:null,
+      comment:"",
+      emoji:""
+    }
+  },
+
+  methods:{
+    calculate(){
+
+  if(!this.name){
+    alert("请输入昵称喵！");
+    return;
+  }
+
+  const name = this.name.trim().toLowerCase();
+
+  /* =========================
+     ① 卡拉彼丘强制100%检测
+     ========================= */
+
+  // 卡丘文化关键词
+  const kqKeywords = [
+    "卡丘","卡拉彼丘","超弦","弦化",
+    "喵","猫娘","猫猫","kcalabiyau",
+    "celestia","strinova"
+  ];
+
+  // 卡拉彼丘角色名（可自行扩展）
+  const characterNames = [
+    "明","信","白墨","星绘","心夏","香奈美",
+    "米雪儿","米雪儿李","伊薇特","奥黛丽",
+    "玛德蕾娜","拉薇","令","糖猫","千代",
+    "忧雾","蕾欧娜","艾卡","芙拉薇娅",
+    "绯莎","汐","玛拉","珐格兰丝","加拉蒂亚"
+  ];
+
+  const allKeywords = [...kqKeywords, ...characterNames];
+
+  // 命中关键词直接100%
+  for(const key of allKeywords){
+    if(name.includes(key.toLowerCase())){
+      this.score = 100;
+      this.comment = "检测到强烈卡丘共振！你就是超弦体本体喵！！";
+      this.emoji = "✨🐈‍⬛✨";
+      this.playVoice();
+      this.spawnDanmaku("喵！");
+      return;
+    }
+  }
+
+
+  /* =========================
+     ② 多重哈希计算（核心）
+     ========================= */
+
+  let hash1 = 0;
+  let hash2 = 1;
+  let hash3 = 7;
+
+  for(let i=0;i<name.length;i++){
+    const code = name.charCodeAt(i);
+
+    // 基础累加
+    hash1 += code * (i + 3);
+
+    // 位运算扰动
+    hash2 ^= (code << (i % 8));
+
+    // 乘法扩散
+    hash3 = (hash3 * 31 + code) % 100000;
+  }
+
+  /* =========================
+     ③ 昵称特征加权
+     ========================= */
+
+  let bonus = 0;
+
+  // 长度加权
+  if(name.length <= 2) bonus += 8;
+  else if(name.length >= 6) bonus += 12;
+
+  // 含数字（中二度提升）
+  if(/\d/.test(name)) bonus += 6;
+
+  // 含英文（异界感）
+  if(/[a-z]/.test(name)) bonus += 5;
+
+  // 重复字符检测（猫化倾向）
+  const unique = new Set(name);
+  const repeatRate = 1 - unique.size / name.length;
+  bonus += Math.floor(repeatRate * 20);
+
+  // 含可爱符号
+  if(/[~!@#$%^&*()_+=]/.test(name)) bonus += 10;
+
+
+  /* =========================
+     ④ 混合最终得分
+     ========================= */
+
+  let score =
+    (hash1 * 3 +
+     hash2 * 5 +
+     hash3 +
+     bonus * 11) % 101;
+
+  if(score < 0) score += 101;
+
+  this.score = score;
+
+
+  /* =========================
+     ⑤ 等级判定
+     ========================= */
+
+  if(score < 20){
+    this.comment="人类浓度过高…尚未弦化喵。";
+    this.emoji="🐾";
+  }
+  else if(score < 40){
+    this.comment="开始接触卡丘频段，耳朵有点痒喵~";
+    this.emoji="🐱";
+  }
+  else if(score < 60){
+    this.comment="喵化进程 50%！正在同步超弦信号！";
+    this.emoji="😺";
+  }
+  else if(score < 85){
+    this.comment="高浓度卡拉彼丘适配者！猫娘指数爆表！";
+    this.emoji="🐈";
+  }
+  else{
+    this.comment="完全弦化成功！欢迎加入卡丘世界喵！！";
+    this.emoji="✨🐈‍⬛✨";
+  }
+
+
+  /* =========================
+     ⑥ 触发效果
+     ========================= */
+
+  this.playVoice();
+  this.spawnDanmaku("喵~");
+}
+  }
+}).mount("#app")
+</script>
+</body>
+</html>
