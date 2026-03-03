@@ -151,7 +151,7 @@ function calculate(){
         pic.value = "/aika4.png";
     }
     else if(score.value < 60){
-        comment.value = "猫娘指数 60%，魅力值飙升喵！";
+        comment.value = "猫娘指数过半了喵，魅力值飙升喵！";
         pic.value = "/mi4.png";
     }
     else if(score.value < 70){
@@ -163,7 +163,7 @@ function calculate(){
         pic.value = "/aika3.png";
     }
     else if(score.value < 90){
-        comment.value = "猫娘指数 90%，完美喵化，魅力爆表！";
+        comment.value = "猫娘指数超过80%了喵！完美喵化，魅力爆表了喵！";
         pic.value = "/mi5.png";
     }
     else{
@@ -218,7 +218,7 @@ function calculate(){
             卡拉彼丘程度计算器喵~
           </h1>
           <p class="text-gray-500 dark:text-gray-400 text-sm tracking-wide">
-            输入昵称喵，检测你的猫娘同步率喵~
+            输入昵称喵，检测你的猫娘指数喵~
           </p>
         </div>
 
@@ -233,7 +233,7 @@ function calculate(){
             @click.stop="calculate"
             class="w-full py-3.5 bg-gradient-to-r from-pink-400 to-indigo-500 hover:from-pink-500 hover:to-indigo-600 text-white font-bold rounded-xl shadow-lg hover:shadow-pink-200/50 transform hover:-translate-y-0.5 active:scale-95 transition-all"
           >
-            开始计算卡拉彼丘程度喵！
+            开始计算猫娘指数喵！
           </button>
         </div>
 
