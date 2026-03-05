@@ -1,6 +1,7 @@
 
 <script setup>
 import { ref } from "vue"
+import { meowQuotes } from "@/data/meowQuotes"
 
 const name = ref("")
 const score = ref(null)
@@ -197,6 +198,49 @@ function calculate(){
       }, 2000)
     }
 
+
+
+    const currentQuote = ref(
+      meowQuotes[Math.floor(Math.random() * meowQuotes.length)]
+    )
+
+    /* =========================
+      随机切换喵言喵语
+      ========================= */
+
+      let history = []
+      const HISTORY_SIZE = 5
+
+      function nextMeowQuote(){
+        let newQuote
+
+        do{
+          newQuote = meowQuotes[Math.floor(Math.random() * meowQuotes.length)]
+        }while(history.includes(newQuote))
+
+        history.push(newQuote)
+
+        if(history.length > HISTORY_SIZE){
+          history.shift()
+        }
+
+        currentQuote.value = newQuote
+      }
+
+
+    const copied = ref(false)
+
+    function copyQuote() {
+      navigator.clipboard.writeText(currentQuote.value)
+
+      copied.value = true
+
+      setTimeout(() => {
+        copied.value = false
+      }, 2000)
+    }
+
+
 </script>
 
 <template>
@@ -249,6 +293,39 @@ function calculate(){
           </div>
         </div>
       </div>
+
+      <div class="w-full max-w-md mt-6 bg-white/80 dark:bg-gray-800/90 backdrop-blur-md rounded-3xl p-6 shadow-2xl border border-white/50 dark:border-gray-700 text-center space-y-4">
+
+        <h2 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-indigo-600 dark:from-pink-400 dark:to-indigo-300">
+          每日喵言喵语
+        </h2>
+
+        <div class="text-gray-700 dark:text-gray-200 italic text-sm leading-relaxed min-h-[48px] flex items-center justify-center px-2">
+          {{ currentQuote }}
+        </div>
+
+        <div class="flex justify-center gap-3">
+
+          <!-- 随机下一句 -->
+          <button
+            @click="nextMeowQuote"
+            class="px-5 py-2.5 bg-gradient-to-r from-pink-400 to-indigo-500 hover:from-pink-500 hover:to-indigo-600 text-white font-bold rounded-xl shadow-md transform hover:-translate-y-0.5 active:scale-95 transition-all"
+          >
+            换一句喵
+          </button>
+               
+          <!-- 复制按钮 -->
+          <button
+            @click="copyQuote"
+            class="px-5 py-2.5 bg-gradient-to-r from-pink-400 to-indigo-500 hover:from-pink-500 hover:to-indigo-600 text-white font-bold rounded-xl shadow-md transform hover:-translate-y-0.5 active:scale-95 transition-all"
+          >
+            {{ copied ? "已复制喵！" : "复制喵语喵" }}
+          </button>
+        </div>
+
+      </div>
+
+
     </main>
 
     <div
