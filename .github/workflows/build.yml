@@ -35,29 +35,12 @@ jobs:
         run: zip -r calabiyauify-names-${{ env.BUILD_DATE }}-git-commit-${{ github.sha }}.zip dist
 
       # 创建 Release
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        with:
-          tag_name: build-${{ env.BUILD_DATE }}-${{ github.sha }}
-          release_name: Build ${{ env.BUILD_DATE }}-${{ github.sha }}
-          draft: false
-          prerelease: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # 上传 build 到 Release
-      - name: Upload Release Asset
+      - name: Create Release and Upload
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: build-${{ env.BUILD_DATE }}-${{ github.sha }}
-          files: calabiyauify-names-${{ env.BUILD_DATE }}-git-commit-${{ github.sha }}.zip
+            tag_name: build-${{ env.BUILD_DATE }}-${{ github.sha }}
+            name: calabiyauify-names-${{ env.BUILD_DATE }}-git-commit-${{ github.sha }}.zip
+            files: calabiyauify-names-${{ env.BUILD_DATE }}-git-commit-${{ github.sha }}.zip
+            overwrite_files: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # 上传 Artifact（可选，Actions 页面下载）
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: calabiyauify-names-${{ env.BUILD_DATE }}-${{ github.sha }}
-          path: dist
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
