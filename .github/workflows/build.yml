@@ -41,7 +41,7 @@ jobs:
       - name: Create Release and Upload
         uses: softprops/action-gh-release@v2
         with:
-            tag_name: build-${{ env.BUILD_DATE }}-${{ github.sha }}
+            tag_name: build-${{ env.BUILD_DATE }}-${{ env.SHORT_SHA }}
             name: calabiyauify-names-${{ env.BUILD_DATE }}-git-commit-${{ env.SHORT_SHA }}.zip
             files: calabiyauify-names-${{ env.BUILD_DATE }}-git-commit-${{ env.SHORT_SHA }}.zip
             overwrite_files: true
