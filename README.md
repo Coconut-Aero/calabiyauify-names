@@ -104,7 +104,7 @@ calabiyauify-names/
 ## 📄 许可证 <img align="right" src="public/mi4.png"  width="64">
 
 
-本项目采用 GNU GPL-3.0 许可证开源
+本项目中核心代码采用 GNU GPL-3.0 许可证开源，项目中音效和图片主要来自于卡拉彼丘BWIKI，喵言喵语来自于卡拉彼丘公屏，这些内容的版权归其作者所有。
 
 ## 🙏 致谢 <img align="right" src="public/xnm2.png"  width="64">
 
