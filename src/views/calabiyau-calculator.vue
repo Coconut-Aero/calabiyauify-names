@@ -344,6 +344,18 @@ function calculate(){
       喵~
     </div>
 
+    <div class="text-gray-700 dark:text-gray-200 text-sm leading-relaxed min-h-[48px] flex items-center justify-center px-2">
+          <span class="text-sm font-bold text-gray-500 tracking-wider">全网已有</span>
+          <div class="relative flex items-center justify-center p-1 rounded-lg   group-hover:scale-105 transition-transform duration-300">
+            <img 
+              src="https://moe-counter.coconut-aero.top/calabiyau:name?theme=calabiyau&length=7&render=pixelated&darkmode=light" 
+              alt="参与人数" 
+              class="h-40 object-contain"
+            />
+          </div>
+          <span class="text-sm font-bold text-gray-500 tracking-wider">人来玩了喵~</span>
+        </div>
+
           <footer class="mt-12 sm:mt-16 text-xs text-gray-400 dark:text-gray-500 transition-opacity duration-500 hover:opacity-80 text-center p-4">
         Made With ❤  | 由 
         <a
